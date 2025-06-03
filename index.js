@@ -1,5 +1,6 @@
 const sequelize = require('./config/config');
 const User = require('./models/User');
+const Task = require('./models/Task');
 
 (async () => {
   try {

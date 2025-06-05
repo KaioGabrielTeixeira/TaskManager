@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/config'); //arquivo que exporta a conexão
+const sequelize = require('../config/config');
 
 class User extends Model {}
 
@@ -31,5 +31,9 @@ User.init({
   tableName: 'users',
   timestamps: true,
 });
+
+User.associate = (models) => {
+  User.hasMany(models.Task, { foreignKey: 'userId' });
+};
 
 module.exports = User;

@@ -6,8 +6,9 @@ const Task = require('./models/Task');
   try {
     await sequelize.authenticate();
     console.log('Conexão OK!');
-    await User.sync({ alter: true }); // cria tabela users se não existir, ajusta estrutura
-    console.log('Model User sincronizado!');
+    await User.sync({ alter: true });
+    await Task.sync({ alter: true });
+    console.log('Model User e Task sincronizados!');
   } catch (error) {
     console.error('Erro:', error);
   } finally {

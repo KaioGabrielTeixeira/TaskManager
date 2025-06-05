@@ -14,10 +14,11 @@ app.use('/tasks', taskRoutes);
 const sequelize = require('./config/config');
 const User = require('./models/User');
 const Task = require('./models/Task');
+const TaskShare = require('./models/TaskShare');
 
 const PORT = process.env.PORT || 3000;
 
-// 🔁 Sincronização e inicialização
+// Sincronização e inicialização
 (async () => {
   try {
     await sequelize.authenticate();
@@ -25,6 +26,7 @@ const PORT = process.env.PORT || 3000;
 
     await User.sync({ alter: true });
     await Task.sync({ alter: true });
+    await TaskShare.sync({ alter: true });
 
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);

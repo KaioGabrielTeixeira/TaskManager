@@ -7,5 +7,6 @@ router.post('/', authenticateToken, taskController.createTask);
 router.get('/', authenticateToken, taskController.getTasks);
 router.put('/:id', authenticateToken, taskController.updateTask);
 router.delete('/:id', authenticateToken, taskController.deleteTask);
+router.post('/:id/share', authenticateToken, taskController.shareTask);
 
 module.exports = router;

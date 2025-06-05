@@ -1,65 +1,111 @@
-# Project Title
+# Sistema de Gerenciamento de Tarefas Colaborativas - Backend
 
-A brief description of your project.
+## Descrição
 
-## Table of Contents
+API RESTful para gerenciamento de tarefas colaborativas, permitindo múltiplos usuários criarem, visualizarem, gerenciarem e compartilharem tarefas.  
+Desenvolvido em **Node.js** com **Express**, **Sequelize** e **PostgreSQL**.
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
+---
 
-## Installation
+## Funcionalidades
 
-1. Clone the repository:
+- **Autenticação e autorização JWT**
+- **Cadastro e login de usuários**
+- **CRUD de tarefas** (criar, listar, editar, excluir)
+- **Compartilhamento de tarefas** (visualização por outros usuários)
+- **Filtros por status e data de vencimento**
+- **Proteção de rotas com middleware**
+- **Modelos organizados com Sequelize**
+
+---
+
+## Tecnologias Utilizadas
+
+- Node.js
+- Express
+- Sequelize
+- PostgreSQL
+- JWT (jsonwebtoken)
+- bcryptjs
+- dotenv
+
+---
+
+## Instalação e Execução
+
+1. **Clone o repositório:**
+   ```sh
+   git clone https://github.com/seu-usuario/seu-repo.git
+   cd seu-repo/backend
    ```
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```
-   cd backend
-   ```
-3. Install the dependencies:
-   ```
+
+2. **Instale as dependências:**
+   ```sh
    npm install
    ```
-4. Create a `.env` file in the root directory and add your database configuration:
+
+3. **Configure o arquivo `.env`:**
    ```
-   DB_NAME=your_database_name
-   DB_USER=your_database_user
-   DB_PASSWORD=your_database_password
-   DB_HOST=your_database_host
-   DB_DIALECT=your_database_dialect
-   JWT_SECRET=your_jwt_secret
+   JWT_SECRET=sua_chave_secreta
+   DB_USER=seu_usuario_postgres
+   DB_PASSWORD=sua_senha_postgres
+   DB_NAME=nome_do_banco
+   DB_HOST=localhost
+   DB_PORT=5432
    ```
 
-## Usage
+4. **Inicie o servidor:**
+   ```sh
+   npm start
+   ```
+   O backend estará disponível em `http://localhost:3000`.
 
-To start the server, run:
-```
-npm start
-```
-The server will run on `http://localhost:3000` by default.
+---
 
-## API Endpoints
+## Rotas Principais
 
-### Authentication
+### Autenticação
+- `POST /auth/register` — Cadastro de usuário
+- `POST /auth/login` — Login de usuário
 
-- **POST /auth/register**: Register a new user.
-- **POST /auth/login**: Log in an existing user.
+### Tarefas (protegidas por JWT)
+- `GET /tasks` — Listar tarefas (próprias e compartilhadas, com filtros)
+- `POST /tasks` — Criar tarefa
+- `PUT /tasks/:id` — Editar tarefa (apenas do dono)
+- `DELETE /tasks/:id` — Excluir tarefa (apenas do dono)
+- `POST /tasks/:id/share` — Compartilhar tarefa com outro usuário
 
-### Tasks
+---
 
-- **POST /tasks**: Create a new task.
-- **GET /tasks**: Retrieve all tasks for the authenticated user.
-- **PUT /tasks/:id**: Update a task by ID.
-- **DELETE /tasks/:id**: Delete a task by ID.
+## Arquitetura & Decisões
 
-## Contributing
+- **Separação de responsabilidades:**  
+  Controllers, models, rotas e middlewares organizados em pastas distintas.
+- **Autorização:**  
+  Apenas o criador pode editar/excluir tarefas. Usuários compartilhados só podem visualizar.
+- **Segurança:**  
+  Dados sensíveis (como senha) nunca são expostos nas respostas da API.
+- **Filtros:**  
+  Implementados via query params para status e data de vencimento.
 
-Contributions are welcome! Please open an issue or submit a pull request.
+---
 
-## License
+## Como contribuir
 
-This project is licensed under the MIT License.
+1. Fork este repositório
+2. Crie uma branch: `git checkout -b minha-feature`
+3. Commit suas alterações: `git commit -m 'feat: minha feature'`
+4. Push para o branch: `git push origin minha-feature`
+5. Abra um Pull Request
+
+---
+
+## Autor
+
+Seu Nome — [seu-usuario no GitHub](https://github.com/seu-usuario)
+
+---
+
+## Licença
+
+Este projeto está sob a licença MIT.

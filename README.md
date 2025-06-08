@@ -1,9 +1,8 @@
-# Sistema de Gerenciamento de Tarefas Colaborativas - Backend
+# Sistema de Gerenciamento de Tarefas Colaborativas
 
 ## Descrição
 
-API RESTful para gerenciamento de tarefas colaborativas, permitindo múltiplos usuários criarem, visualizarem, gerenciarem e compartilharem tarefas.  
-Desenvolvido em **Node.js** com **Express**, **Sequelize** e **PostgreSQL**.
+Aplicação fullstack para gerenciamento de tarefas colaborativas, permitindo que múltiplos usuários criem, visualizem, compartilhem e gerenciem tarefas. Desenvolvido como desafio técnico para processo seletivo.
 
 ---
 
@@ -21,44 +20,63 @@ Desenvolvido em **Node.js** com **Express**, **Sequelize** e **PostgreSQL**.
 
 ## Tecnologias Utilizadas
 
-- Node.js
-- Express
-- Sequelize
-- PostgreSQL
-- JWT (jsonwebtoken)
-- bcryptjs
-- dotenv
+- **Frontend:** Angular, Angular Material
+- **Backend:** Node.js, Express
+- **Banco de Dados:** PostgreSQL
+- **ORM:** Sequelize
+- **Autenticação:** JWT (jsonwebtoken)
+- **Outros:** bcryptjs, dotenv
 
 ---
 
 ## Instalação e Execução
 
-1. **Clone o repositório:**
-   ```sh
-   git clone https://github.com/seu-usuario/seu-repo.git
-   cd seu-repo/backend
-   ```
+### Pré-requisitos
 
-2. **Instale as dependências:**
-   ```sh
-   npm install
-   ```
+- Node.js (v18+)
+- PostgreSQL
+- Angular CLI
 
-3. **Configure o arquivo `.env`:**
-   ```
-   JWT_SECRET=sua_chave_secreta
-   DB_USER=seu_usuario_postgres
-   DB_PASSWORD=sua_senha_postgres
-   DB_NAME=nome_do_banco
-   DB_HOST=localhost
-   DB_PORT=5432
-   ```
+### 1. Clone o repositório
 
-4. **Inicie o servidor:**
-   ```sh
-   npm start
-   ```
-   O backend estará disponível em `http://localhost:3000`.
+```sh
+git clone <https://github.com/KaioGabrielTeixeira/TaskManager>
+cd <TaskManager>
+```
+
+### 2. Configuração do Banco de Dados
+
+- Crie um banco de dados no PostgreSQL (ex: `taskmanager`)
+- Configure o arquivo `.env` na pasta `backend`:
+
+```env
+DB_NAME=taskmanager
+DB_USER=postgres
+DB_PASSWORD=<sua_senha>
+DB_HOST=localhost
+DB_PORT=5432
+DB_DIALECT=postgres
+JWT_SECRET=<sua_chave_secreta>
+PORT=3000
+```
+
+### 3. Backend
+
+```sh
+cd backend
+npm install
+npm start
+```
+O backend estará disponível em `http://localhost:3000`.
+
+### 4. Frontend
+
+```sh
+cd frontend
+npm install
+ng serve
+```
+O frontend estará disponível em `http://localhost:4200`.
 
 ---
 
@@ -87,22 +105,39 @@ Desenvolvido em **Node.js** com **Express**, **Sequelize** e **PostgreSQL**.
   Dados sensíveis (como senha) nunca são expostos nas respostas da API.
 - **Filtros:**  
   Implementados via query params para status e data de vencimento.
+- **Frontend:**  
+  Angular Material para UI consistente e responsiva.
 
 ---
 
-## Como contribuir
+## Como executar localmente
 
-1. Fork este repositório
-2. Crie uma branch: `git checkout -b minha-feature`
-3. Commit suas alterações: `git commit -m 'feat: minha feature'`
-4. Push para o branch: `git push origin minha-feature`
-5. Abra um Pull Request
+1. Suba o banco de dados PostgreSQL e configure o `.env`
+2. Inicie o backend (`npm start` na pasta backend)
+3. Inicie o frontend (`ng serve` na pasta frontend)
+4. Acesse `http://localhost:4200` no navegador
+
+---
+
+## Principais decisões técnicas
+
+- **JWT** para autenticação stateless e segura.
+- **Sequelize** para abstração do banco e fácil manutenção dos modelos.
+- **Angular Material** para UI rápida e responsiva.
+- **Arquitetura modular** para facilitar manutenção e testes.
+
+---
+
+## Histórico de Commits
+
+- Commits frequentes e descritivos.
+- Evolução do código registrada passo a passo.
 
 ---
 
 ## Autor
 
-Seu Nome — [seu-usuario no GitHub](https://github.com/seu-usuario)
+Kaio Gabriel Teixeira — [KaioGabrielTeixeira](https://github.com/KaioGabrielTeixeira)
 
 ---
 

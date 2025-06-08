@@ -47,7 +47,10 @@ cd <TaskManager>
 ### 2. Configuração do Banco de Dados
 
 - Crie um banco de dados no PostgreSQL (ex: `taskmanager`)
-- Configure o arquivo `.env` na pasta `backend`:
+- Copie o arquivo `.env.example` para `.env` na pasta `backend`:
+  
+```bash
+cp backend/.env.example backend/.env```
 
 ```env
 DB_NAME=taskmanager

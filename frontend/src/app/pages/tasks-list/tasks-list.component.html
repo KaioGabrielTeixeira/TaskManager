@@ -1,0 +1,55 @@
+<mat-card class="tasks-list-container">
+  <h2>Minhas Tarefas</h2>
+  <div class="user-info">Bem-vindo, {{ userName }}</div>
+
+  <div class="logout-container">
+    <button mat-stroked-button color="warn" (click)="logout()">Sair</button>
+  </div>
+
+  <form class="task-form" (ngSubmit)="createTask()" #taskForm="ngForm">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Título da tarefa</mat-label>
+      <input matInput [(ngModel)]="newTaskTitle" name="titulo" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Descrição</mat-label>
+      <input matInput [(ngModel)]="newTaskDescription" name="descricao" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="newTaskStatus" name="status" required>
+        <mat-option value="pendente">Pendente</mat-option>
+        <mat-option value="em andamento">Em andamento</mat-option>
+        <mat-option value="concluída">Concluída</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Data de vencimento</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="newTaskDueDate" name="data_vencimento" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!taskForm.form.valid">
+        Criar Tarefa
+      </button>
+    </div>
+  </form>
+
+  <div class="task-list">
+    <div *ngFor="let task of tasks" class="task-item" [ngClass]="task.status.replace(' ', '-')">
+      <div class="task-header">
+        <span class="task-title">{{ task.titulo }}</span>
+        <span class="status" [ngClass]="task.status.replace(' ', '-')">{{ task.status }}</span>
+      </div>
+      <div class="desc" *ngIf="task.descricao">{{ task.descricao }}</div>
+      <div class="date" *ngIf="task.data_vencimento">
+        Vence em: {{ task.data_vencimento | date:'dd/MM/yyyy' }}
+      </div>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,21 @@
+<mat-card class="register-container">
+  <h2>Cadastro</h2>
+  <form (ngSubmit)="register()" #registerForm="ngForm" class="register-form">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Nome</mat-label>
+      <input matInput [(ngModel)]="nome" name="nome" type="text" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="email" name="email" type="email" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Senha</mat-label>
+      <input matInput [(ngModel)]="password" name="password" type="password" required />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.form.valid">Cadastrar</button>
+  </form>
+</mat-card>

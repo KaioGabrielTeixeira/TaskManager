@@ -24,7 +24,7 @@ Task.init({
     defaultValue: 'pendente',
   },
   data_vencimento: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: true,
   },
   userId: {

@@ -6,6 +6,29 @@
     <button mat-stroked-button color="warn" (click)="logout()">Sair</button>
   </div>
 
+  <!-- Filtros -->
+  <div class="filters" style="margin-bottom: 16px;">
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="filterStatus">
+        <mat-option value="">Todos</mat-option>
+        <mat-option value="pendente">Pendente</mat-option>
+        <mat-option value="em andamento">Em Andamento</mat-option>
+        <mat-option value="concluída">Concluída</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Data de vencimento</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="filterDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="aplicarFiltros()">Filtrar</button>
+    <button mat-button (click)="limparFiltros()">Limpar</button>
+  </div>
+
   <form class="task-form" (ngSubmit)="createTask()" #taskForm="ngForm">
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Título da tarefa</mat-label>
@@ -28,14 +51,20 @@
 
     <mat-form-field appearance="outline" class="form-field">
       <mat-label>Data de vencimento</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="newTaskDueDate" name="data_vencimento" />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <input matInput [matDatepicker]="pickerDue" [(ngModel)]="newTaskDueDate" name="data_vencimento" placeholder="Data de vencimento">
+      <mat-datepicker-toggle matSuffix [for]="pickerDue"></mat-datepicker-toggle>
+      <mat-datepicker #pickerDue></mat-datepicker>
     </mat-form-field>
 
     <div class="button-container">
-      <button mat-raised-button color="primary" type="submit" [disabled]="!taskForm.form.valid">
+      <button mat-raised-button color="primary" type="submit" *ngIf="!editingTaskId">
         Criar Tarefa
+      </button>
+      <button mat-raised-button color="accent" type="button" (click)="salvarEdicao()" *ngIf="editingTaskId">
+        Salvar Edição
+      </button>
+      <button mat-button type="button" (click)="cancelarEdicao()" *ngIf="editingTaskId">
+        Cancelar
       </button>
     </div>
   </form>
@@ -49,6 +78,35 @@
       <div class="desc" *ngIf="task.descricao">{{ task.descricao }}</div>
       <div class="date" *ngIf="task.data_vencimento">
         Vence em: {{ task.data_vencimento | date:'dd/MM/yyyy' }}
+      </div>
+      <button mat-icon-button color="primary" (click)="editarTask(task)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="confirmarDelete(task)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button color="accent" (click)="abrirCompartilhamento(task)">
+        <mat-icon>share</mat-icon>
+      </button>
+
+      <div *ngIf="sharingTaskId === task.id">
+        <mat-form-field>
+          <mat-label>Email para compartilhar</mat-label>
+          <input matInput [(ngModel)]="shareEmail" placeholder="Digite o e-mail">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="compartilharTask()">Compartilhar</button>
+        <button mat-button (click)="cancelarCompartilhamento()">Cancelar</button>
+      </div>
+
+      <!-- Exemplo dentro do bloco de cada tarefa -->
+      <div *ngIf="task.sharedWith && task.sharedWith.length">
+        <span>Compartilhada com:</span>
+        <span *ngFor="let email of task.sharedWith">
+          {{ email }}
+          <button mat-icon-button color="warn" (click)="descompartilharTask(task.id, email)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </span>
       </div>
     </div>
   </div>

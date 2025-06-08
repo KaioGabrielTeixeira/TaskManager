@@ -4,6 +4,11 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './app/services/auth-interceptor';
+import { LOCALE_ID } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localePt);
 
 bootstrapApplication(App, {
   providers: [
@@ -23,6 +28,7 @@ bootstrapApplication(App, {
           return next(req);
         }
       ])
-    )
+    ),
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ]
 }).catch((err) => console.error(err));

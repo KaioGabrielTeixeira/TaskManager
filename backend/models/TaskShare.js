@@ -38,5 +38,6 @@ TaskShare.init({
 
 Task.belongsToMany(User, { through: TaskShare, as: 'SharedWith', foreignKey: 'taskId' });
 User.belongsToMany(Task, { through: TaskShare, as: 'SharedTasks', foreignKey: 'userId' });
+TaskShare.belongsTo(User, { as: 'user', foreignKey: 'userId' });
 
 module.exports = TaskShare;

@@ -1,5 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --primary-color: #2196f3;
+  --secondary-color: #1976d2;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --error-color: #f44336;
+  --background-color: #f5f7fa;
+  --card-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+html, body { 
+  height: 100%; 
+  background-color: var(--background-color);
+}
+
+body { 
+  margin: 0; 
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+.mat-card {
+  border-radius: 16px !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+.mat-raised-button {
+  border-radius: 8px !important;
+  padding: 8px 24px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+}
